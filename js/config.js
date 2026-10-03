@@ -15,7 +15,7 @@ const PLR_CONFIG = {
   LUCRO_1S: 7368000000,          // R$ 7,368 bilhões
   EFETIVO_TOTAL: 84136,           // Empregados ativos
   ADICIONAL_CALCULADA_SEM: 1926.60, // 2,2% do lucro 1S linear por empregado
-  DEDUCAO_DEP: 189.59,            // Dedução mensal por dependente legal para IRRF PLR
+  DEDUCAO_DEP: 189.59,            // Dedução por dependente legal para IRRF exclusivo da PLR
 
   // Faixas da Tabela Progressiva Exclusiva de IRRF para PLR
   TABELA_IRRF: [
