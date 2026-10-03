@@ -54,7 +54,7 @@
         </div>
         <div class="bg-blue-900/40 rounded-lg p-2">
           <span class="block text-blue-200 text-[10px] uppercase">Reajuste CCT 2026</span>
-          <span class="font-bold text-amber-300 text-sm">+4,06% (INPC+0,6%)</span>
+          <span class="font-bold text-amber-300 text-sm">+4,6% (INPC+0,6%)</span>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
           <!-- Card de Cálculo do Reajuste -->
           <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs space-y-1">
             <div class="flex justify-between items-center text-blue-900 font-medium">
-              <span>Reajuste da CCT (+4,06%):</span>
+              <span>Reajuste da CCT (+4,6%):</span>
               <span id="reajusteValorDisplay" class="font-bold text-caixa-blue">+ R$ 0,00</span>
             </div>
             <div class="flex justify-between items-center text-blue-950 font-bold pt-1 border-t border-blue-200">
@@ -112,7 +112,7 @@
             </label>
             <select id="tipoAdicional" class="block w-full rounded-lg border border-slate-300 px-3 py-2 text-xs text-slate-900 bg-white focus:border-blue-600 outline-none">
               <option value="calculada" selected>2,2% do 1S26 linear (R$ 1.926,60)</option>
-              <option value="teto">Teto semestral 50% (R$ 3.817,23)</option>
+              <option value="teto">Teto semestral 50% (R$ 3.837,04)</option>
             </select>
           </div>
 
@@ -205,7 +205,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div class="p-3.5 border-b bg-slate-50 flex items-center justify-between">
             <h3 class="text-xs sm:text-sm font-bold text-slate-900">
-              Detalhamento Financeiro (Reajuste +4,06% aplicado)
+              Detalhamento Financeiro (Reajuste +4,6% aplicado)
             </h3>
             <span class="text-[10px] text-slate-500 font-mono">Tributação Exclusiva</span>
           </div>
@@ -224,7 +224,7 @@
                 <tr>
                   <td class="p-3">
                     <span class="font-semibold text-slate-800 block">1. Regra Básica FENABAN</span>
-                    <span class="text-[10px] text-slate-400">90% RB reajustada + R$ 3.676,36 (Teto: R$ 19.721,90)</span>
+                    <span class="text-[10px] text-slate-400">90% RB reajustada + R$ 3.695,43 (Teto: R$ 19.824,24)</span>
                   </td>
                   <td id="detBasicaAnt" class="p-3 text-right font-mono font-medium text-slate-700">R$ 0,00</td>
                   <td id="detBasicaSaldo" class="p-3 text-right font-mono font-medium text-slate-700">R$ 0,00</td>
@@ -307,10 +307,10 @@
           <strong>Demonstrações Financeiras 1S2026 da CAIXA:</strong> Lucro líquido contábil de <strong>R$ 7,368 bilhões</strong> apurado de janeiro a junho de 2026 (R$ 3,900 bi no 2T26), com projeção anual estimada em ~R$ 14,7 bilhões. Efetivo total de <strong>84.136 empregados</strong> ao final do semestre.
         </li>
         <li>
-          <strong>Sentença Normativa TST (Dissídio de 23/09/2026, Cláusula 22):</strong> Reajuste salarial e dos tetos de <strong>4,06%</strong> (INPC + 0,60%). Antecipação de 60% da Regra Básica (54% da RB + R$ 2.205,81 fixos).
+          <strong>Sentença Normativa TST (Dissídio de 23/09/2026, Cláusula 22):</strong> Reajuste salarial e dos tetos de <strong>4,6%</strong> (INPC + 0,60%). Antecipação de 60% da Regra Básica (54% da RB + R$ 2.217,26 fixos).
         </li>
         <li>
-          <strong>Memória da Parcela Adicional FENABAN:</strong> Quota de 2,2% sobre o lucro semestral (R$ 162,10 mi) dividida por 84.136 empregados = <strong>R$ 1.926,60</strong> (ou teto normativo de R$ 3.817,23 se antecipado o limite semestral integral).
+          <strong>Memória da Parcela Adicional FENABAN:</strong> Quota de 2,2% sobre o lucro semestral (R$ 162,10 mi) dividida por 84.136 empregados = <strong>R$ 1.926,60</strong> (ou teto normativo de R$ 3.837,04 se antecipado o limite semestral integral).
         </li>
         <li>
           <strong>PLR CAIXA Social:</strong> Até 4% do lucro semestral (R$ 294,72 mi) dividido igualmente entre os 84.136 empregados (cota máxima de R$ 3.502,90), condicionada ao atingimento de metas corporativas.
@@ -321,18 +321,18 @@
   </main>
 
   <script>
-    const REAJUSTE = 0.0406; // 4,06%
+    const REAJUSTE = 0.046; // 4,6% (INPC + 0,6%)
     const FIXO_BASICA_BASE = 3532.92;
     const TETO_BASICA_BASE = 18952.43;
     const TETO_ADIC_BASE = 7336.60;
 
-    const FIXO_BASICA_ANUAL = FIXO_BASICA_BASE * (1 + REAJUSTE); // R$ 3.676,36
-    const TETO_BASICA_ANUAL = TETO_BASICA_BASE * (1 + REAJUSTE); // R$ 19.721,90
-    const TETO_ADIC_ANUAL   = TETO_ADIC_BASE * (1 + REAJUSTE);   // R$ 7.634,47
+    const FIXO_BASICA_ANUAL = FIXO_BASICA_BASE * (1 + REAJUSTE); // R$ 3.695,43
+    const TETO_BASICA_ANUAL = TETO_BASICA_BASE * (1 + REAJUSTE); // R$ 19.824,24
+    const TETO_ADIC_ANUAL   = TETO_ADIC_BASE * (1 + REAJUSTE);   // R$ 7.674,08
 
     // Dados do balanço 1S2026
     const ADICIONAL_CALCULADA_SEM = 1926.60;
-    const TETO_ADIC_SEM = 0.50 * TETO_ADIC_ANUAL; // R$ 3.817,23
+    const TETO_ADIC_SEM = 0.50 * TETO_ADIC_ANUAL; // R$ 3.837,04
     const DEDUCAO_DEP = 189.59;
 
     const rbInput = document.getElementById('rbInput');
@@ -417,7 +417,7 @@
 
       // 1. Antecipação (20/10/2026)
       const basicaAntCalc = (0.54 * rbNova) + (0.60 * FIXO_BASICA_ANUAL);
-      const tetoBasicaAnt = 0.60 * TETO_BASICA_ANUAL; // R$ 11.833,14
+      const tetoBasicaAnt = 0.60 * TETO_BASICA_ANUAL; // R$ 11.894,55
       const basicaAnt = Math.min(basicaAntCalc, tetoBasicaAnt);
 
       const adicAnt = tipoAdicional.value === 'teto' ? TETO_ADIC_SEM : ADICIONAL_CALCULADA_SEM;
@@ -508,7 +508,7 @@
 
       const texto = `*SIMULADOR PLR CAIXA 2026 (BALANÇO 1S2026)*\n` +
         `• RB Anterior (Agosto/26): ${formatMoeda(rbAnt)}\n` +
-        `• Nova RB (+4,06% em Set/26): ${formatMoeda(rbNova)}\n` +
+        `• Nova RB (+4,6% em Set/26): ${formatMoeda(rbNova)}\n` +
         `• Lucro Líquido 1S26: R$ 7,368 bi | Quadro: 84.136 empregados\n\n` +
         `----------------------------------------\n` +
         `*1ª PARCELA: ANTECIPAÇÃO (20/10/2026)*\n` +
