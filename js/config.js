@@ -17,13 +17,13 @@ const PLR_CONFIG = {
   ADICIONAL_CALCULADA_SEM: 1926.60, // 2,2% do lucro 1S linear por empregado
   DEDUCAO_DEP: 189.59,            // Dedução por dependente legal para IRRF exclusivo da PLR
 
-  // Faixas da Tabela Progressiva Exclusiva de IRRF para PLR
+  // Faixas da Tabela Progressiva Exclusiva de IRRF para PLR (Receita Federal / Lei nº 10.101/2000 atualizada)
   TABELA_IRRF: [
-    { limite: 7640.80, aliquota: 0.00, deducao: 0.00 },
-    { limite: 9922.28, aliquota: 0.075, deducao: 573.06 },
-    { limite: 13167.00, aliquota: 0.15, deducao: 1317.23 },
-    { limite: 16380.38, aliquota: 0.225, deducao: 2304.76 },
-    { limite: Infinity, aliquota: 0.275, deducao: 3123.78 }
+    { limite: 8214.40, aliquota: 0.00, deducao: 0.00 },
+    { limite: 9922.28, aliquota: 0.075, deducao: 616.08 },
+    { limite: 13167.00, aliquota: 0.15, deducao: 1360.25 },
+    { limite: 16380.38, aliquota: 0.225, deducao: 2347.78 },
+    { limite: Infinity, aliquota: 0.275, deducao: 3166.80 }
   ]
 };
 

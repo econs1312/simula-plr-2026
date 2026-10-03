@@ -34,8 +34,8 @@ simula-plr-2026/
   - Linear (2,2% do lucro / efetivo): R$ 1.926,60 no 1º semestre.
   - Teto semestral (50% do teto anual): R$ 3.837,04.
 - **PLR CAIXA Social:** Parcela exclusiva dos empregados da CAIXA distribuída de forma linear (valor igual para todos, sem distinção de cargo/salário), equivalente a até 4% do lucro líquido semestral e variável conforme o percentual de atingimento das metas corporativas (teto semestral de R$ 3.502,90 para 100% de metas).
-- **Tributação (IRRF Exclusivo na Fonte):** Tabela progressiva exclusiva para PLR (Lei nº 10.101/2000), com dedução por dependente legal de R$ 189,59/mês.
-  - *Nota sobre valores estimados e variação de faixas:* Os valores simulados são referenciais. A legislação da Receita Federal determina que todos os pagamentos de PLR ocorridos no mesmo ano-calendário (como a quitação da PLR 2025 paga em março/2026 somada à antecipação da PLR 2026 em outubro/2026) sejam acumulados para cálculo do imposto na folha oficial. Empregados com remuneração menor (como Técnicos Bancários) ou diferentes patamares salariais podem atingir alíquotas efetivas menores ou maiores a depender do histórico de recebimento e do IR já retido no ano.
+- **Tributação (IRRF Exclusivo na Fonte):** Tabela progressiva exclusiva para PLR (Lei nº 10.101/2000 atualizada), com dedução por dependente legal de R$ 189,59/mês.
+  - *Cálculo Cumulativo Real no Ano Civil:* A legislação da Receita Federal (Regime de Caixa / Solução COSIT nº 229/2014) determina que todos os pagamentos de PLR ocorridos no mesmo ano civil (a quitação da PLR 2025 paga em março/2026 somada à antecipação da PLR 2026 em outubro/2026) sejam acumulados para cálculo do imposto na folha oficial, com compensação do IR já retido. O simulador inclui essa apuração oficial por padrão, permitindo simular com fidelidade a retenção real de IRRF no contracheque de outubro/2026 (alíquota efetiva de 27,5% acumulada) para evitar surpresas no valor líquido em conta.
 
 ---
 

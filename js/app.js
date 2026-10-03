@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const socialInput = document.getElementById('socialInput');
   const depInput = document.getElementById('depInput');
   const pensaoInput = document.getElementById('pensaoInput');
+  const checkAcumulo = document.getElementById('checkAcumulo');
+  const plrMarcoInput = document.getElementById('plrMarcoInput');
+  const boxPlrMarco = document.getElementById('boxPlrMarco');
+  const badgeAcumulo = document.getElementById('badgeAcumulo');
   const btnLimpar = document.getElementById('btnLimpar');
   const btnCopiar = document.getElementById('btnCopiar');
   const copiadoAviso = document.getElementById('copiadoAviso');
@@ -19,10 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cards Principais
   const cardLiqAnt = document.getElementById('cardLiqAnt');
   const cardBrutoAnt = document.getElementById('cardBrutoAnt');
+  const cardIrrfAnt = document.getElementById('cardIrrfAnt');
+
   const cardLiqSaldo = document.getElementById('cardLiqSaldo');
   const cardBrutoSaldo = document.getElementById('cardBrutoSaldo');
+  const cardIrrfSaldo = document.getElementById('cardIrrfSaldo');
+
   const cardLiqTotal = document.getElementById('cardLiqTotal');
   const cardBrutoTotal = document.getElementById('cardBrutoTotal');
+  const cardIrrfTotal = document.getElementById('cardIrrfTotal');
 
   // Tabela Demonstrativa
   const detBasicaAnt = document.getElementById('detBasicaAnt');
@@ -69,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function aplicarMascara(input) {
+    if (!input) return;
     input.addEventListener('blur', () => {
       const num = parseMoeda(input.value);
       if (num > 0) {
@@ -80,6 +90,19 @@ document.addEventListener('DOMContentLoaded', () => {
   aplicarMascara(rbInput);
   aplicarMascara(socialInput);
   aplicarMascara(pensaoInput);
+  aplicarMascara(plrMarcoInput);
+
+  if (checkAcumulo) {
+    checkAcumulo.addEventListener('change', () => {
+      if (boxPlrMarco) {
+        boxPlrMarco.style.display = checkAcumulo.checked ? 'block' : 'none';
+      }
+      if (badgeAcumulo) {
+        badgeAcumulo.style.display = checkAcumulo.checked ? 'inline-block' : 'none';
+      }
+      recalcular();
+    });
+  }
 
   // ==========================================
   // Atualização dos Resultados na Interface
@@ -89,6 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const socialSem = parseMoeda(socialInput.value);
     const dependentes = parseInt(depInput.value, 10) || 0;
     const pensao = parseMoeda(pensaoInput.value);
+    const considerarMarco = checkAcumulo ? checkAcumulo.checked : true;
+    const plrMarco = parseMoeda(plrMarcoInput ? plrMarcoInput.value : '');
+
+    // Se o usuário não digitou o valor de março, exibe no placeholder a estimativa sugerida
+    if (plrMarcoInput && !plrMarcoInput.value && rbAnt > 0) {
+      const estMarco = Math.round(rbAnt * 1.05 * 100) / 100;
+      plrMarcoInput.placeholder = `Est: ${formatMoeda(estMarco)}`;
+    }
 
     // Estado Zerado
     if (rbAnt <= 0) {
@@ -102,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el) el.innerText = 'R$ 0,00';
       });
 
-      [detIrrfAnt, detIrrfSaldo, detIrrfTotal].forEach(el => {
+      [detIrrfAnt, detIrrfSaldo, detIrrfTotal, cardIrrfAnt, cardIrrfSaldo, cardIrrfTotal].forEach(el => {
         if (el) el.innerText = '- R$ 0,00';
       });
       return;
@@ -114,7 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
       socialSem,
       tipoAdicional: tipoAdicional.value,
       dependentes,
-      pensao
+      pensao,
+      considerarMarco,
+      plrMarco
     });
 
     if (!res) return;
@@ -126,12 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cards de Resumo
     cardLiqAnt.innerText = formatMoeda(res.antecipacao.liquido);
     cardBrutoAnt.innerText = formatMoeda(res.antecipacao.bruto);
+    if (cardIrrfAnt) cardIrrfAnt.innerText = `- ${formatMoeda(res.antecipacao.irrf)}`;
 
     cardLiqSaldo.innerText = formatMoeda(res.saldo.liquido);
     cardBrutoSaldo.innerText = formatMoeda(res.saldo.bruto);
+    if (cardIrrfSaldo) cardIrrfSaldo.innerText = `- ${formatMoeda(res.saldo.irrf)}`;
 
     cardLiqTotal.innerText = formatMoeda(res.total.liquido);
     cardBrutoTotal.innerText = formatMoeda(res.total.bruto);
+    if (cardIrrfTotal) cardIrrfTotal.innerText = `- ${formatMoeda(res.total.irrf)}`;
 
     // Tabela - Linha 1: Regra Básica
     detBasicaAnt.innerText = formatMoeda(res.antecipacao.basica);
@@ -173,6 +209,15 @@ document.addEventListener('DOMContentLoaded', () => {
     depInput.value = '0';
     socialInput.value = '2.000,00';
     tipoAdicional.value = 'calculada';
+    if (plrMarcoInput) {
+      plrMarcoInput.value = '';
+      plrMarcoInput.placeholder = 'Estimativa automática';
+    }
+    if (checkAcumulo) {
+      checkAcumulo.checked = true;
+      if (boxPlrMarco) boxPlrMarco.style.display = 'block';
+      if (badgeAcumulo) badgeAcumulo.style.display = 'inline-block';
+    }
     recalcular();
     rbInput.focus();
   });
@@ -188,33 +233,44 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const considerarMarco = checkAcumulo ? checkAcumulo.checked : true;
+    const plrMarco = parseMoeda(plrMarcoInput ? plrMarcoInput.value : '');
+
     const res = PLRCalculator.calcular({
       rbAnt,
       socialSem: parseMoeda(socialInput.value),
       tipoAdicional: tipoAdicional.value,
       dependentes: parseInt(depInput.value, 10) || 0,
-      pensao: parseMoeda(pensaoInput.value)
+      pensao: parseMoeda(pensaoInput.value),
+      considerarMarco,
+      plrMarco
     });
+
+    const infoMarco = considerarMarco
+      ? `• Acúmulo Ano Civil: Considerada PLR de Março/26 (${formatMoeda(res.acumuloMarco.plrMarcoUsada)})\n`
+      : `• Tributação: Parcelas calculadas de forma isolada\n`;
 
     const texto = `*SIMULADOR PLR CAIXA 2026 (BALANÇO 1S2026)*\n` +
       `• RB Anterior (Agosto/26): ${formatMoeda(rbAnt)}\n` +
       `• Nova RB (+4,6% em Set/26): ${formatMoeda(res.reajuste.rbNova)}\n` +
+      infoMarco +
       `• Lucro Líquido 1S26: R$ 7,368 bi | Quadro: 84.136 empregados\n\n` +
       `----------------------------------------\n` +
       `*1ª PARCELA: ANTECIPAÇÃO (20/10/2026)*\n` +
       `• Bruto: ${detBrutoAnt.innerText}\n` +
-      `• IRRF: ${detIrrfAnt.innerText}\n` +
+      `• IRRF Retido: ${detIrrfAnt.innerText}\n` +
       `*👉 LÍQUIDO EM CONTA: ${cardLiqAnt.innerText}*\n` +
       `----------------------------------------\n` +
       `*2ª PARCELA: SALDO FINAL (MARÇO/2027)*\n` +
       `• Bruto: ${detBrutoSaldo.innerText}\n` +
-      `• IRRF: ${detIrrfSaldo.innerText}\n` +
+      `• IRRF Estimado: ${detIrrfSaldo.innerText}\n` +
       `*👉 LÍQUIDO ESTIMADO: ${cardLiqSaldo.innerText}*\n` +
       `----------------------------------------\n` +
       `*PLR TOTAL DO ANO (2026):*\n` +
       `• Bruto Total: ${cardBrutoTotal.innerText}\n` +
+      `• IRRF Total: ${detIrrfTotal.innerText}\n` +
       `• Líquido Total: ${cardLiqTotal.innerText}\n\n` +
-      `_⚠️ Obs: Valores estimados de referência. O IRRF pode variar conforme a tributação cumulativa no mesmo ano-calendário (ex: quitação da PLR 2025 recebida em março/2026) e faixas da Receita Federal._\n` +
+      `_⚠️ Regra da Folha da CAIXA e Receita Federal: O IRRF de outubro acumula com março no ano civil._\n` +
       `_Fontes: Balanço CAIXA 1S2026 e Sentença Normativa TST (23/09/2026)._`;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -256,9 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // Registro de Eventos dos Inputs
   // ==========================================
-  [rbInput, tipoAdicional, socialInput, depInput, pensaoInput].forEach(el => {
-    el.addEventListener('input', recalcular);
-    el.addEventListener('change', recalcular);
+  [rbInput, tipoAdicional, socialInput, depInput, pensaoInput, plrMarcoInput].forEach(el => {
+    if (el) {
+      el.addEventListener('input', recalcular);
+      el.addEventListener('change', recalcular);
+    }
   });
 
   // Executa o cálculo inicial

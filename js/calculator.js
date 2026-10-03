@@ -36,9 +36,11 @@ const PLRCalculator = {
    * @param {string} params.tipoAdicional - 'calculada' (R$ 1.926,60) ou 'teto' (R$ 3.837,04)
    * @param {number} params.dependentes - Quantidade de dependentes para IR
    * @param {number} params.pensao - Valor de pensão alimentícia judicial
+   * @param {boolean} [params.considerarMarco=true] - Se considera acúmulo no ano-calendário com Março/2026
+   * @param {number} [params.plrMarco=0] - Valor da PLR bruta recebida em Março/2026
    * @returns {Object} Resultados discriminados por parcela e totais
    */
-  calcular({ rbAnt, socialSem, tipoAdicional, dependentes, pensao }) {
+  calcular({ rbAnt, socialSem, tipoAdicional, dependentes, pensao, considerarMarco = true, plrMarco = 0 }) {
     if (rbAnt <= 0) {
       return null;
     }
@@ -61,8 +63,39 @@ const PLRCalculator = {
     const brutoAnt = basicaAnt + adicAnt + socialAnt;
 
     const deducaoDep = (dependentes || 0) * PLR_CONFIG.DEDUCAO_DEP;
-    const baseIrrfAnt = Math.max(0, brutoAnt - deducaoDep - (pensao || 0));
-    const { imposto: irrfAnt, aliq: aliqAnt } = this.calcIRRF(baseIrrfAnt);
+    const deducoes = deducaoDep + (pensao || 0);
+
+    // Apuração do IRRF da Antecipação (Outubro/2026)
+    let irrfAnt = 0;
+    let aliqAnt = 0;
+    let plrMarcoEfetiva = 0;
+    let irrfMarco = 0;
+    let impostoTotalAno = 0;
+
+    if (considerarMarco) {
+      // Se não informado pelo usuário, estima a quitação de março como ~1,05x da RB
+      plrMarcoEfetiva = plrMarco > 0 ? plrMarco : Math.round(rbAnt * 1.05 * 100) / 100;
+
+      // IRRF já pago na folha de Março/2026 (1º pagamento do ano civil 2026)
+      const baseMarco = Math.max(0, plrMarcoEfetiva - deducoes);
+      const resMarco = this.calcIRRF(baseMarco);
+      irrfMarco = resMarco.imposto;
+
+      // Base acumulada do ano civil 2026 (Março + Outubro)
+      const baseAcumulada = Math.max(0, plrMarcoEfetiva + brutoAnt - deducoes);
+      impostoTotalAno = this.calcIRRF(baseAcumulada).imposto;
+
+      // Imposto retido em Outubro/2026 = Imposto Acumulado - Imposto já pago em Março
+      irrfAnt = Math.max(0, impostoTotalAno - irrfMarco);
+      aliqAnt = brutoAnt > 0 ? (irrfAnt / brutoAnt) * 100 : 0;
+    } else {
+      // Cálculo isolado (caso não tenha recebido PLR em março/2026)
+      const baseIrrfAnt = Math.max(0, brutoAnt - deducoes);
+      const resIsolado = this.calcIRRF(baseIrrfAnt);
+      irrfAnt = resIsolado.imposto;
+      aliqAnt = resIsolado.aliq;
+    }
+
     const liqAnt = brutoAnt - irrfAnt;
 
     // ----------------------------------------------------
@@ -86,12 +119,13 @@ const PLRCalculator = {
     const socialSaldo = socialSem;
     const brutoSaldo = basicaSaldo + adicSaldo + socialSaldo;
 
-    const baseIrrfSaldo = Math.max(0, brutoSaldo - deducaoDep - (pensao || 0));
+    // Em Março/2027 inicia o novo ano civil (2027), sendo o 1º pagamento daquele ano
+    const baseIrrfSaldo = Math.max(0, brutoSaldo - deducoes);
     const { imposto: irrfSaldo, aliq: aliqSaldo } = this.calcIRRF(baseIrrfSaldo);
     const liqSaldo = brutoSaldo - irrfSaldo;
 
     // ----------------------------------------------------
-    // 4. Totais e IRRF Consolidado
+    // 4. Totais Consolidados do Exercício 2026
     // ----------------------------------------------------
     const irrfTotal = irrfAnt + irrfSaldo;
     const liqTotal = liqAnt + liqSaldo;
@@ -101,6 +135,12 @@ const PLRCalculator = {
         taxa: PLR_CONFIG.REAJUSTE,
         aumento,
         rbNova
+      },
+      acumuloMarco: {
+        ativo: Boolean(considerarMarco),
+        plrMarcoUsada: plrMarcoEfetiva,
+        irrfMarco,
+        impostoTotalAno
       },
       antecipacao: {
         basica: basicaAnt,
