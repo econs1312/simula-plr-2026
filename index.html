@@ -8,12 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .caixa-blue { background-color: #005CA9; }
-    .caixa-dark { background-color: #003666; }
-    .text-caixa-blue { color: #005CA9; }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen pb-12">
 
@@ -22,7 +17,7 @@
     <div class="max-w-5xl mx-auto px-4 py-6">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <div class="inline-flex items-center gap-2 bg-blue-900/60 text-blue-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-blue-400/30">
+          <div class="inline-flex items-center gap-2 glass-badge text-blue-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-2">
             <span>Exercício 2026</span>
             <span>•</span>
             <span>Balanço 1S2026</span>
@@ -32,7 +27,7 @@
             Cálculo da <strong>Antecipação (20/10/2026)</strong> e da <strong>2ª Parcela (Março/2027)</strong>
           </p>
         </div>
-        <div class="bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 backdrop-blur-sm text-center md:text-right">
+        <div class="glass-panel rounded-xl px-4 py-2.5 text-center md:text-right">
           <span class="block text-[11px] text-blue-200 uppercase font-medium">Data do Crédito</span>
           <span class="text-lg font-bold text-white">20 de Outubro de 2026</span>
         </div>
@@ -166,36 +161,36 @@
         <!-- 3 Cards Resumo -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           
-          <div class="bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl p-4 shadow-sm">
+          <div class="card-hover bg-gradient-to-br from-emerald-600 to-teal-700 text-white rounded-2xl p-4 shadow-sm">
             <span class="text-[10px] font-bold text-emerald-200 uppercase tracking-wider block">
               1ª Parcela (20/10/2026)
             </span>
             <div class="text-xs text-emerald-100 font-medium">Antecipação Líquida</div>
-            <div id="cardLiqAnt" class="text-2xl font-black mt-1.5 tracking-tight">R$ 0,00</div>
+            <div id="cardLiqAnt" class="text-2xl font-black mt-1.5 tracking-tight tabular-nums">R$ 0,00</div>
             <div class="text-[11px] text-emerald-200 mt-2 border-t border-emerald-500/40 pt-1">
-              Bruto: <span id="cardBrutoAnt" class="font-bold text-white">R$ 0,00</span>
+              Bruto: <span id="cardBrutoAnt" class="font-bold text-white tabular-nums">R$ 0,00</span>
             </div>
           </div>
 
-          <div class="bg-gradient-to-br from-blue-700 to-indigo-800 text-white rounded-2xl p-4 shadow-sm">
+          <div class="card-hover bg-gradient-to-br from-blue-700 to-indigo-800 text-white rounded-2xl p-4 shadow-sm">
             <span class="text-[10px] font-bold text-blue-200 uppercase tracking-wider block">
               2ª Parcela (Março/2027)
             </span>
             <div class="text-xs text-blue-100 font-medium">Saldo Líquido Estimado</div>
-            <div id="cardLiqSaldo" class="text-2xl font-black mt-1.5 tracking-tight">R$ 0,00</div>
+            <div id="cardLiqSaldo" class="text-2xl font-black mt-1.5 tracking-tight tabular-nums">R$ 0,00</div>
             <div class="text-[11px] text-blue-200 mt-2 border-t border-blue-500/40 pt-1">
-              Bruto: <span id="cardBrutoSaldo" class="font-bold text-white">R$ 0,00</span>
+              Bruto: <span id="cardBrutoSaldo" class="font-bold text-white tabular-nums">R$ 0,00</span>
             </div>
           </div>
 
-          <div class="bg-slate-900 text-white rounded-2xl p-4 shadow-sm">
+          <div class="card-hover bg-slate-900 text-white rounded-2xl p-4 shadow-sm">
             <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
               PLR Total do Exercício 2026
             </span>
             <div class="text-xs text-slate-300 font-medium">Soma das Duas Parcelas</div>
-            <div id="cardLiqTotal" class="text-2xl font-black mt-1.5 tracking-tight">R$ 0,00</div>
+            <div id="cardLiqTotal" class="text-2xl font-black mt-1.5 tracking-tight tabular-nums">R$ 0,00</div>
             <div class="text-[11px] text-slate-400 mt-2 border-t border-slate-700 pt-1">
-              Bruto: <span id="cardBrutoTotal" class="font-bold text-slate-200">R$ 0,00</span>
+              Bruto: <span id="cardBrutoTotal" class="font-bold text-slate-200 tabular-nums">R$ 0,00</span>
             </div>
           </div>
 
@@ -320,219 +315,9 @@
 
   </main>
 
-  <script>
-    const REAJUSTE = 0.046; // 4,6% (INPC + 0,6%)
-    const FIXO_BASICA_BASE = 3532.92;
-    const TETO_BASICA_BASE = 18952.43;
-    const TETO_ADIC_BASE = 7336.60;
-
-    const FIXO_BASICA_ANUAL = FIXO_BASICA_BASE * (1 + REAJUSTE); // R$ 3.695,43
-    const TETO_BASICA_ANUAL = TETO_BASICA_BASE * (1 + REAJUSTE); // R$ 19.824,24
-    const TETO_ADIC_ANUAL   = TETO_ADIC_BASE * (1 + REAJUSTE);   // R$ 7.674,08
-
-    // Dados do balanço 1S2026
-    const ADICIONAL_CALCULADA_SEM = 1926.60;
-    const TETO_ADIC_SEM = 0.50 * TETO_ADIC_ANUAL; // R$ 3.837,04
-    const DEDUCAO_DEP = 189.59;
-
-    const rbInput = document.getElementById('rbInput');
-    const tipoAdicional = document.getElementById('tipoAdicional');
-    const socialInput = document.getElementById('socialInput');
-    const depInput = document.getElementById('depInput');
-    const pensaoInput = document.getElementById('pensaoInput');
-    const rbReajustadaDisplay = document.getElementById('rbReajustadaDisplay');
-    const reajusteValorDisplay = document.getElementById('reajusteValorDisplay');
-    const btnLimpar = document.getElementById('btnLimpar');
-    const btnCopiar = document.getElementById('btnCopiar');
-    const copiadoAviso = document.getElementById('copiadoAviso');
-
-    function formatMoeda(val) {
-      return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-
-    function parseMoeda(str) {
-      if (!str) return 0;
-      let limpo = str.toString().replace(/[^\d,.-]/g, '');
-      if (limpo.includes(',') && limpo.includes('.')) {
-        limpo = limpo.replace(/\./g, '').replace(',', '.');
-      } else if (limpo.includes(',')) {
-        limpo = limpo.replace(',', '.');
-      }
-      const val = parseFloat(limpo);
-      return isNaN(val) ? 0 : val;
-    }
-
-    function aplicarMascara(input) {
-      input.addEventListener('blur', () => {
-        const num = parseMoeda(input.value);
-        if (num > 0) {
-          input.value = num.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-      });
-    }
-
-    aplicarMascara(rbInput);
-    aplicarMascara(socialInput);
-    aplicarMascara(pensaoInput);
-
-    function calcIRRF(base) {
-      if (base <= 7640.80) {
-        return { imposto: 0, aliq: 0 };
-      } else if (base <= 9922.28) {
-        return { imposto: (base * 0.075) - 573.06, aliq: 7.5 };
-      } else if (base <= 13167.00) {
-        return { imposto: (base * 0.15) - 1317.23, aliq: 15.0 };
-      } else if (base <= 16380.38) {
-        return { imposto: (base * 0.225) - 2304.76, aliq: 22.5 };
-      } else {
-        return { imposto: (base * 0.275) - 3123.78, aliq: 27.5 };
-      }
-    }
-
-    function recalcular() {
-      const rbAnt = parseMoeda(rbInput.value);
-      const socialSem = parseMoeda(socialInput.value);
-      const dependentes = parseInt(depInput.value) || 0;
-      const pensao = parseMoeda(pensaoInput.value);
-
-      if (rbAnt <= 0) {
-        rbReajustadaDisplay.innerText = 'R$ 0,00';
-        reajusteValorDisplay.innerText = '+ R$ 0,00';
-        ['cardLiqAnt','cardBrutoAnt','cardLiqSaldo','cardBrutoSaldo','cardLiqTotal','cardBrutoTotal',
-         'detBasicaAnt','detBasicaSaldo','detBasicaTotal','detAdicAnt','detAdicSaldo','detAdicTotal',
-         'detSocialAnt','detSocialSaldo','detSocialTotal','detBrutoAnt','detBrutoSaldo','detBrutoTotal',
-         'detIrrfAnt','detIrrfSaldo','detIrrfTotal','detLiqAnt','detLiqSaldo','detLiqTotal'].forEach(id => {
-          document.getElementById(id).innerText = 'R$ 0,00';
-        });
-        document.getElementById('detIrrfAnt').innerText = '- R$ 0,00';
-        document.getElementById('detIrrfSaldo').innerText = '- R$ 0,00';
-        document.getElementById('detIrrfTotal').innerText = '- R$ 0,00';
-        return;
-      }
-
-      const aumento = rbAnt * REAJUSTE;
-      const rbNova = rbAnt + aumento;
-      reajusteValorDisplay.innerText = `+ ${formatMoeda(aumento)}`;
-      rbReajustadaDisplay.innerText = formatMoeda(rbNova);
-
-      // 1. Antecipação (20/10/2026)
-      const basicaAntCalc = (0.54 * rbNova) + (0.60 * FIXO_BASICA_ANUAL);
-      const tetoBasicaAnt = 0.60 * TETO_BASICA_ANUAL; // R$ 11.894,55
-      const basicaAnt = Math.min(basicaAntCalc, tetoBasicaAnt);
-
-      const adicAnt = tipoAdicional.value === 'teto' ? TETO_ADIC_SEM : ADICIONAL_CALCULADA_SEM;
-      const socialAnt = socialSem;
-      const brutoAnt = basicaAnt + adicAnt + socialAnt;
-
-      const deducaoDep = dependentes * DEDUCAO_DEP;
-      const baseIrrfAnt = Math.max(0, brutoAnt - deducaoDep - pensao);
-      const { imposto: irrfAnt } = calcIRRF(baseIrrfAnt);
-      const liqAnt = brutoAnt - irrfAnt;
-
-      // 2. Total Anual
-      const basicaAnualCalc = (0.90 * rbNova) + FIXO_BASICA_ANUAL;
-      const basicaAnual = Math.min(basicaAnualCalc, TETO_BASICA_ANUAL);
-      const adicAnual = tipoAdicional.value === 'teto' ? TETO_ADIC_ANUAL : (ADICIONAL_CALCULADA_SEM * 2);
-      const socialAnual = socialSem * 2;
-      const brutoAnual = basicaAnual + adicAnual + socialAnual;
-
-      // 3. Saldo Março/2027
-      const basicaSaldo = basicaAnual - basicaAnt;
-      const adicSaldo = adicAnual - adicAnt;
-      const socialSaldo = socialSem;
-      const brutoSaldo = basicaSaldo + adicSaldo + socialSaldo;
-
-      const baseIrrfSaldo = Math.max(0, brutoSaldo - deducaoDep - pensao);
-      const { imposto: irrfSaldo } = calcIRRF(baseIrrfSaldo);
-      const liqSaldo = brutoSaldo - irrfSaldo;
-
-      const irrfTotal = irrfAnt + irrfSaldo;
-      const liqTotal = liqAnt + liqSaldo;
-
-      // Atualizar Cards
-      document.getElementById('cardLiqAnt').innerText = formatMoeda(liqAnt);
-      document.getElementById('cardBrutoAnt').innerText = formatMoeda(brutoAnt);
-      document.getElementById('cardLiqSaldo').innerText = formatMoeda(liqSaldo);
-      document.getElementById('cardBrutoSaldo').innerText = formatMoeda(brutoSaldo);
-      document.getElementById('cardLiqTotal').innerText = formatMoeda(liqTotal);
-      document.getElementById('cardBrutoTotal').innerText = formatMoeda(brutoAnual);
-
-      // Detalhamento
-      document.getElementById('detBasicaAnt').innerText = formatMoeda(basicaAnt);
-      document.getElementById('detBasicaSaldo').innerText = formatMoeda(basicaSaldo);
-      document.getElementById('detBasicaTotal').innerText = formatMoeda(basicaAnual);
-
-      document.getElementById('detAdicAnt').innerText = formatMoeda(adicAnt);
-      document.getElementById('detAdicSaldo').innerText = formatMoeda(adicSaldo);
-      document.getElementById('detAdicTotal').innerText = formatMoeda(adicAnual);
-
-      document.getElementById('detSocialAnt').innerText = formatMoeda(socialAnt);
-      document.getElementById('detSocialSaldo').innerText = formatMoeda(socialSaldo);
-      document.getElementById('detSocialTotal').innerText = formatMoeda(socialAnual);
-
-      document.getElementById('detBrutoAnt').innerText = formatMoeda(brutoAnt);
-      document.getElementById('detBrutoSaldo').innerText = formatMoeda(brutoSaldo);
-      document.getElementById('detBrutoTotal').innerText = formatMoeda(brutoAnual);
-
-      document.getElementById('detIrrfAnt').innerText = `- ${formatMoeda(irrfAnt)}`;
-      document.getElementById('detIrrfSaldo').innerText = `- ${formatMoeda(irrfSaldo)}`;
-      document.getElementById('detIrrfTotal').innerText = `- ${formatMoeda(irrfTotal)}`;
-
-      document.getElementById('detLiqAnt').innerText = formatMoeda(liqAnt);
-      document.getElementById('detLiqSaldo').innerText = formatMoeda(liqSaldo);
-      document.getElementById('detLiqTotal').innerText = formatMoeda(liqTotal);
-    }
-
-    [rbInput, tipoAdicional, socialInput, depInput, pensaoInput].forEach(el => {
-      el.addEventListener('input', recalcular);
-      el.addEventListener('change', recalcular);
-    });
-
-    btnLimpar.addEventListener('click', () => {
-      rbInput.value = '';
-      pensaoInput.value = '';
-      depInput.value = '0';
-      socialInput.value = '2.000,00';
-      tipoAdicional.value = 'calculada';
-      recalcular();
-      rbInput.focus();
-    });
-
-    btnCopiar.addEventListener('click', () => {
-      const rbAnt = parseMoeda(rbInput.value);
-      if (rbAnt <= 0) {
-        alert('Informe a Remuneração-Base antes de copiar.');
-        return;
-      }
-      const rbNova = rbAnt * (1 + REAJUSTE);
-
-      const texto = `*SIMULADOR PLR CAIXA 2026 (BALANÇO 1S2026)*\n` +
-        `• RB Anterior (Agosto/26): ${formatMoeda(rbAnt)}\n` +
-        `• Nova RB (+4,6% em Set/26): ${formatMoeda(rbNova)}\n` +
-        `• Lucro Líquido 1S26: R$ 7,368 bi | Quadro: 84.136 empregados\n\n` +
-        `----------------------------------------\n` +
-        `*1ª PARCELA: ANTECIPAÇÃO (20/10/2026)*\n` +
-        `• Bruto: ${document.getElementById('detBrutoAnt').innerText}\n` +
-        `• IRRF: ${document.getElementById('detIrrfAnt').innerText}\n` +
-        `*👉 LÍQUIDO EM CONTA: ${document.getElementById('cardLiqAnt').innerText}*\n` +
-        `----------------------------------------\n` +
-        `*2ª PARCELA: SALDO FINAL (MARÇO/2027)*\n` +
-        `• Bruto: ${document.getElementById('detBrutoSaldo').innerText}\n` +
-        `• IRRF: ${document.getElementById('detIrrfSaldo').innerText}\n` +
-        `*👉 LÍQUIDO ESTIMADO: ${document.getElementById('cardLiqSaldo').innerText}*\n` +
-        `----------------------------------------\n` +
-        `*PLR TOTAL DO ANO (2026):*\n` +
-        `• Bruto Total: ${document.getElementById('cardBrutoTotal').innerText}\n` +
-        `• Líquido Total: ${document.getElementById('cardLiqTotal').innerText}\n\n` +
-        `_Fontes: Balanço CAIXA 1S2026 e Sentença Normativa TST (23/09/2026)._`;
-
-      navigator.clipboard.writeText(texto).then(() => {
-        copiadoAviso.classList.remove('hidden');
-        setTimeout(() => { copiadoAviso.classList.add('hidden'); }, 3500);
-      });
-    });
-
-    recalcular();
-  </script>
+  <!-- Scripts e Lógica Modular -->
+  <script src="js/config.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

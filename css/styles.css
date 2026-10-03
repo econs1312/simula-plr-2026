@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Simulador PLR CAIXA 2026 - Folha de Estilos Customizados
+   ========================================================================== */
+
+:root {
+  --caixa-blue: #005CA9;
+  --caixa-blue-dark: #003666;
+  --caixa-blue-light: #0073d1;
+  --caixa-blue-subtle: #f0f7ff;
+  --accent-gold: #f59e0b;
+  --success-emerald: #059669;
+  --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Tipografia Base */
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Cores Oficiais e Temas */
+.caixa-blue {
+  background-color: var(--caixa-blue);
+}
+
+.caixa-dark {
+  background-color: var(--caixa-blue-dark);
+}
+
+.text-caixa-blue {
+  color: var(--caixa-blue);
+}
+
+.bg-caixa-subtle {
+  background-color: var(--caixa-blue-subtle);
+}
+
+/* Efeitos Visuais e Glassmorphism */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-badge {
+  background: rgba(0, 54, 102, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+/* Cards Interativos */
+.card-hover {
+  transition: var(--transition-smooth);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+/* Inputs e Foco Suave */
+input:focus, select:focus {
+  transition: var(--transition-smooth);
+}
+
+/* Micro-animação de Cópia */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInSlide 0.25s ease-out forwards;
+}
+
+/* Números em Destaque */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Estilos de Impressão (PDF/Exportação) */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    padding-bottom: 0 !important;
+  }
+
+  header {
+    background-color: var(--caixa-blue) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  button, #btnCopiar, #btnLimpar {
+    display: none !important;
+  }
+
+  main {
+    margin-top: 1rem !important;
+    max-width: 100% !important;
+  }
+
+  .shadow-sm, .shadow-md {
+    box-shadow: none !important;
+  }
+}
