@@ -33,7 +33,7 @@ simula-plr-2026/
 - **Parcela Adicional FENABAN:**
   - Linear (2,2% do lucro / efetivo): R$ 1.926,60 no 1º semestre.
   - Teto semestral (50% do teto anual): R$ 3.837,04.
-- **PLR CAIXA Social:** Até 4% do lucro semestral distribuído linearmente entre os empregados (conforme atingimento de metas).
+- **PLR CAIXA Social:** Parcela exclusiva dos empregados da CAIXA distribuída de forma linear (valor igual para todos, sem distinção de cargo/salário), equivalente a até 4% do lucro líquido semestral e variável conforme o percentual de atingimento das metas corporativas (teto semestral de R$ 3.502,90 para 100% de metas).
 - **Tributação (IRRF Exclusivo na Fonte):** Tabela progressiva exclusiva para PLR (Lei nº 10.101/2000), com dedução por dependente legal de R$ 189,59/mês.
   - *Nota sobre valores estimados e variação de faixas:* Os valores simulados são referenciais. A legislação da Receita Federal determina que todos os pagamentos de PLR ocorridos no mesmo ano-calendário (como a quitação da PLR 2025 paga em março/2026 somada à antecipação da PLR 2026 em outubro/2026) sejam acumulados para cálculo do imposto na folha oficial. Empregados com remuneração menor (como Técnicos Bancários) ou diferentes patamares salariais podem atingir alíquotas efetivas menores ou maiores a depender do histórico de recebimento e do IR já retido no ano.
 
