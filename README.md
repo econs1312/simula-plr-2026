@@ -34,7 +34,8 @@ simula-plr-2026/
   - Linear (2,2% do lucro / efetivo): R$ 1.926,60 no 1º semestre.
   - Teto semestral (50% do teto anual): R$ 3.837,04.
 - **PLR CAIXA Social:** Até 4% do lucro semestral distribuído linearmente entre os empregados (conforme atingimento de metas).
-- **Tributação:** Tabela progressiva exclusiva para PLR (Lei 10.101/2000), com dedução por dependente de R$ 189,59/mês.
+- **Tributação (IRRF Exclusivo na Fonte):** Tabela progressiva exclusiva para PLR (Lei nº 10.101/2000), com dedução por dependente legal de R$ 189,59/mês.
+  - *Nota sobre valores estimados e variação de faixas:* Os valores simulados são referenciais. A legislação da Receita Federal determina que todos os pagamentos de PLR ocorridos no mesmo ano-calendário (como a quitação da PLR 2025 paga em março/2026 somada à antecipação da PLR 2026 em outubro/2026) sejam acumulados para cálculo do imposto na folha oficial. Empregados com remuneração menor (como Técnicos Bancários) ou diferentes patamares salariais podem atingir alíquotas efetivas menores ou maiores a depender do histórico de recebimento e do IR já retido no ano.
 
 ---
 

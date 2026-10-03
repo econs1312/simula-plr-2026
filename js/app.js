@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `*PLR TOTAL DO ANO (2026):*\n` +
       `• Bruto Total: ${cardBrutoTotal.innerText}\n` +
       `• Líquido Total: ${cardLiqTotal.innerText}\n\n` +
+      `_⚠️ Obs: Valores estimados de referência. O IRRF pode variar conforme a tributação cumulativa no mesmo ano-calendário (ex: quitação da PLR 2025 recebida em março/2026) e faixas da Receita Federal._\n` +
       `_Fontes: Balanço CAIXA 1S2026 e Sentença Normativa TST (23/09/2026)._`;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
